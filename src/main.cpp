@@ -1,69 +1,55 @@
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
+#include <BluetoothSerial.h>
+#include <FS.h>
+#include <Root.h>
+#include <Graph.h>
+#include <SPIFFS.h>
+#include <Data.h>
 
-#include <ros.h>
-#include <std_msgs/Float64.h>
-#include <ESP32Servo.h> 
-#include <std_msgs/UInt16.h>
+#define DEVICE_NAME "ESP32"
 
+File *roverPathFile;
+File *roverColisionsFile;
 
-//Set up the ros node and publisher
-std_msgs::Float64 Distance;
-ros::Publisher pub_sonar("sonar",&Distance);
-ros::NodeHandle nh;
+BluetoothSerial SerialBT;
 
-int trigPin = 27;    // Trigger
-int echoPin = 14;    // Echo
+void setup()
+{
+    Serial.begin(115200);
+    SerialBT.begin(DEVICE_NAME);
+    SPIFFS.begin();
 
-// defines variables
-long duration;
-float distance;
-Servo servo;
+    while (!SerialBT)
+    {
+        delay(100);
+        Serial.println("Aguardando conexão Bluetooth...");
+    }
 
-void servo_cb( const std_msgs::UInt16& cmd_msg){
-  servo.write(cmd_msg.data); //set servo angle, should be from 0-180  
+    Serial.println("Conectado ao Bluetooth!");
 }
 
-ros::Subscriber<std_msgs::UInt16> sub("servo", servo_cb);
+void loop()
+{
 
-void setup() {
- 
-  Serial.begin(57600); // Starts the serial communication
-  //Define inputs and outputs
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
-  nh.initNode();
-  nh.advertise(pub_sonar);
-  nh.subscribe(sub); 
-  servo.attach(13); //attach it to pin 9
-}
+    // Se houver dados disponíveis no Bluetooth, receba-os
+    // idle
+    if (SerialBT.available())
+    {
+        char data = SerialBT.read();
+        switch (data)
+        {
+        case 'n': //new root
+            Graph *roverPath = newRoot();
+            Graph *roverColisions = newRoot();
+            pathGenerator(roverPathFile, roverColisionsFile);
+            break;
+        case 'm': //automatic mapping
+            
+        default:
+            break;
+        }
 
-
-
-
-void loop() {
-// Clears the trigPin
-digitalWrite(trigPin, LOW);
-delayMicroseconds(2);
-
-// Sets the trigPin on HIGH state for 10 micro seconds
-digitalWrite(trigPin, HIGH);
-delayMicroseconds(10);
-digitalWrite(trigPin, LOW);
-
-// Reads the echoPin, returns the sound wave travel time in microseconds
-duration = pulseIn(echoPin, HIGH);
-
-// Calculating the distance
-distance= duration*0.034/2;
-//publishing data
-
-Distance.data=distance;
-pub_sonar.publish(&Distance);
-nh.spinOnce();
-
-delay(100);
+        // Imprima os dados recebidos no console serial
+        Serial.println(data);
+    }
 }

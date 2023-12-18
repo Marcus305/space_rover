@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "fs.h": "c",
+        "memory.h": "c",
+        "arduino.h": "c"
+    }
+}
