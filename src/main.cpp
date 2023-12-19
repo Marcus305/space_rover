@@ -40,12 +40,12 @@ void loop()
         switch (data)
         {
         case 'n': //new root
-            Graph *roverPath = newRoot();
-            Graph *roverColisions = newRoot();
+            Graph *roverPath = newRoot(false);
+            Graph *roverColisions = newRoot(true);
             pathGenerator(roverPathFile, roverColisionsFile);
             break;
         case 'm': //automatic mapping
-            auto
+            automaticMapping(roverPathFile, roverColisionsFile);
             break;
         default:
             break;

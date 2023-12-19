@@ -11,8 +11,8 @@ typedef struct Node {
 }Node;
 
 typedef struct Edge {
-  unsigned from;
-  unsigned to;
+  unsigned from; //inverte
+  unsigned to; //real
   double angle;
 }Edge;
 

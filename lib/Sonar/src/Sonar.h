@@ -15,8 +15,8 @@
 #include <Graph.h>
 #include <math.h>
 
-double radAngle(double degree);
+double radAngle(int degree);
 
-void checkSpace(Servo *motor, Ultrasonic *sen1, Ultrasonic *sen2, Graph *colisions, Node *position, double *longPathPossible, double *freePath);
+double checkSpace(Servo *motor, Ultrasonic *sen1, Ultrasonic *sen2, Graph *colisions, Node *position, int *longPathPossible, int *freePath);
 
 #endif

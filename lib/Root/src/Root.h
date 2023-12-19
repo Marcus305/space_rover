@@ -3,6 +3,6 @@
 
 #include <Graph.h>
 
-Graph *newRoot();
+Graph *newRoot(bool c);
 
 #endif
