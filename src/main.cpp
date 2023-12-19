@@ -5,6 +5,7 @@
 #include <Graph.h>
 #include <SPIFFS.h>
 #include <Data.h>
+#include <AMapping.h>
 
 #define DEVICE_NAME "ESP32"
 
@@ -44,7 +45,8 @@ void loop()
             pathGenerator(roverPathFile, roverColisionsFile);
             break;
         case 'm': //automatic mapping
-            
+            auto
+            break;
         default:
             break;
         }

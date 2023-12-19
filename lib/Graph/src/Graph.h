@@ -1,7 +1,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#define MAX_NODES 200
+#define MAX_NODES 800
 #define MAX_EDGES 300
 
 typedef struct Node {
