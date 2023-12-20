@@ -6,14 +6,14 @@
 #include <SPIFFS.h>
 #include <Data.h>
 #include <AMapping.h>
-#include <Servo.h>
+#include <ESP32Servo.h>
 
 #define DEVICE_NAME "ESP32"
-#define PINO_SERVO 9
-#define PINO_TRIGGER_SEN1 10
-#define PINO_ECHO_SEN1 11
-#define PINO_TRIGGER_SEN2 12
-#define PINO_ECHO_SEN2 13
+#define PINO_SERVO 25
+#define PINO_TRIGGER_SEN1 23
+#define PINO_ECHO_SEN1 22
+#define PINO_TRIGGER_SEN2 34
+#define PINO_ECHO_SEN2 35
 
 File *roverPathFile;
 File *roverColisionsFile;
@@ -51,7 +51,7 @@ void loop()
 {
     // Se houver dados disponíveis no Bluetooth, receba-os
     // idle
-    if (SerialBT.available())
+    /*if (SerialBT.available())
     {
         char data = SerialBT.read();
         switch (data)
@@ -75,5 +75,9 @@ void loop()
 
         // Imprima os dados recebidos no console serial
         Serial.println(data);
+    }*/
+    for(int i=0; i<180; i++) {
+        motor.write(i);
+        delay(200);
     }
 }

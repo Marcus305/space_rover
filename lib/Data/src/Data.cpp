@@ -14,6 +14,6 @@ void pathGenerator(File *path, File *colisions) {
 
     String p = "/graphPath" + String(n+1);
     String c = "/graphColision" + String(n+1);
-    path = &SPIFFS.open(p, "w+");
-    colisions = &SPIFFS.open(p, "w+");
+    *path = SPIFFS.open(p, "w+");
+    *colisions = SPIFFS.open(p, "w+");
 }

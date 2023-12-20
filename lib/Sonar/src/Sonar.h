@@ -3,14 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <Servo.h>
-#include <Ultrasonic.h>
-#include <Graph.h>
-#include <math.h>
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <Servo.h>
+#include <ESP32Servo.h>
 #include <Ultrasonic.h>
 #include <Graph.h>
 #include <math.h>
