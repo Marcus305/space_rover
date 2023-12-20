@@ -20,7 +20,7 @@ void automaticMapping(File *pathing, File *colisions, Graph *pathingGraph, Graph
     {
         int *longPathPossible = NULL;
         int *freePath = NULL;
-        Node *position = &pathingGraph->nodes[pathingGraph->num_nodes]; // checar a lógica
+        Node *position = &pathingGraph->nodes[pathingGraph->num_nodes];
         double maxFreeDistance = 0.0;
         maxFreeDistance = checkSpace(motor, sen1, sen2, colisionsGraph, position, longPathPossible, freePath);
         if (freePath != NULL)
